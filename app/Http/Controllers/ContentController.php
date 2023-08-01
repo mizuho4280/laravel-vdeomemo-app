@@ -16,7 +16,9 @@ class ContentController extends Controller
      */
     public function index()
     {
+
         $contents = Auth::user()->contents;
+        $contents = Content::latest()->get();
 
         return view('contents.index', compact('contents'));
     }
@@ -50,7 +52,7 @@ class ContentController extends Controller
         $content->user_id = Auth::id();
         $content->save();
 
-        return redirect()->route('contents.index'); 
+        return redirect()->route('contents.index');
     }
 
     /**
@@ -61,7 +63,7 @@ class ContentController extends Controller
      */
     public function show(Content $content)
     {
-        //
+        return view('contents.show', compact('content'));
     }
 
     /**
@@ -72,7 +74,9 @@ class ContentController extends Controller
      */
     public function edit(Content $content)
     {
-        //
+
+        return view('contents.edit', compact('content'));
+
     }
 
     /**
@@ -84,7 +88,12 @@ class ContentController extends Controller
      */
     public function update(Request $request, Content $content)
     {
-        //
+        $content->title = $request->input('title');
+        $content->url = $request->input('url');
+        $content->body = $request->input('body');
+        $content->save();
+
+        return redirect()->route('contents.show', $content)->with('flash_message', '投稿を編集しました。');
     }
 
     /**
@@ -95,6 +104,9 @@ class ContentController extends Controller
      */
     public function destroy(Content $content)
     {
-        //
+        $content->delete();
+
+        return redirect()->route('contents.index');
     }
+
 }

@@ -25,7 +25,7 @@ class ContentController extends Controller
             $query->where('title', 'LIKE', "%{$search}%");
         }
 
-        $contents = $query->where('user_id', Auth::id())->paginate(10);
+        $contents = $query->where('user_id', Auth::id())->paginate(2);
 
 
 

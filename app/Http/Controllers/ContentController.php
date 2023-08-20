@@ -14,11 +14,21 @@ class ContentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $contents = Auth::user()->contents;
-        $contents = Content::latest()->get();
+        $search = $request->input('search');
+
+        $query = Content::query();
+
+        if (!empty($search)) {
+            $query->where('title', 'LIKE', "%{$search}%");
+        }
+
+        $contents = $query->where('user_id', Auth::id())->paginate(10);
+
+
+
 
         return view('contents.index', compact('contents'));
     }
@@ -41,9 +51,20 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-        ]);
+        $request->validate(
+            [
+                'title' => 'required',
+                'url' => 'required|max:11|min:11',
+                'body' => 'nullable',
+            ],
+            [
+                'title.required' => 'タイトルは必須です',
+                'url.required' => '動画IDは必須です',
+                'url.max:11' => '動画IDは11字です',
+                'url.min:11' => '動画IDは11字です'
+            ]
+        );
+
 
         $content = new Content();
         $content->title = $request->input('title');
@@ -88,6 +109,21 @@ class ContentController extends Controller
      */
     public function update(Request $request, Content $content)
     {
+
+        $request->validate(
+            [
+                'title' => 'required',
+                'url' => 'required|max:11|min:11',
+                'body' => 'nullable',
+            ],
+            [
+                'title.required' => 'タイトルは必須です',
+                'url.required' => '動画IDは必須です',
+                'url.max:11' => '動画IDは11字です',
+                'url.min:11' => '動画IDは11字です'
+            ]
+        );
+
         $content->title = $request->input('title');
         $content->url = $request->input('url');
         $content->body = $request->input('body');

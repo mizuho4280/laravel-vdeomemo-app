@@ -15,6 +15,7 @@ class ContentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
+    public function index(Request $request)
     {
 
         $search = $request->input('search');
@@ -73,6 +74,20 @@ class ContentController extends Controller
             ]
         );
 
+        $request->validate(
+            [
+                'title' => 'required',
+                'url' => 'required|max:11|min:11',
+                'body' => 'nullable',
+            ],
+            [
+                'title.required' => 'タイトルは必須です',
+                'url.required' => '動画IDは必須です',
+                'url.max:11' => '動画IDは11字です',
+                'url.min:11' => '動画IDは11字です'
+            ]
+        );
+
 
         $content = new Content();
         $content->title = $request->input('title');
@@ -117,6 +132,21 @@ class ContentController extends Controller
      */
     public function update(Request $request, Content $content)
     {
+
+        $request->validate(
+            [
+                'title' => 'required',
+                'url' => 'required|max:11|min:11',
+                'body' => 'nullable',
+            ],
+            [
+                'title.required' => 'タイトルは必須です',
+                'url.required' => '動画IDは必須です',
+                'url.max:11' => '動画IDは11字です',
+                'url.min:11' => '動画IDは11字です'
+            ]
+        );
+
 
         $request->validate(
             [

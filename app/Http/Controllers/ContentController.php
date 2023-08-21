@@ -25,12 +25,20 @@ class ContentController extends Controller
             $query->where('title', 'LIKE', "%{$search}%");
         }
 
-        $contents = $query->where('user_id', Auth::id())->paginate(2);
+        $sort = $request->get('sort');
+        if ($sort) {
+            if ($sort == 'asc') {
+                $contents = Content::latest()->paginate(2);
+            } elseif ($sort == 'desc') {
+                $contents = Content::oldest()->paginate(2);
+            }
+        } else {
+            $contents = Content::all();
+        }
 
 
 
-
-        return view('contents.index', compact('contents'));
+        return view('contents.index', compact('contents'), ['sort' => $sort, 'contents' => $contents]);
     }
 
     /**
@@ -144,5 +152,6 @@ class ContentController extends Controller
 
         return redirect()->route('contents.index');
     }
+
 
 }

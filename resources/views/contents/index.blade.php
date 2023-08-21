@@ -8,8 +8,8 @@
         <form action="{{ route('contents.index') }}" method="get">
             <div>
                 <input type="text" name="search" placeholder="検索">
+                <button type="submit">検索</button>
             </div>
-            <button type="submit">検索</button>
         </form>
 
 
@@ -20,7 +20,12 @@
                     <h1>投稿一覧</h1>
                     <div>
                         <a href="{{ route('contents.create') }}">新規投稿</a>
-
+                        <div>
+                            <form action="{{ route('contents.store') }}">
+                                <button type="submit" name="sort" value="asc">新しい順</button>
+                                <button type="submit" name="sort" value="desc">古い順</button>
+                            </form>
+                        </div>
                         @foreach ($contents as $content)
                             <div>
                                 <div>

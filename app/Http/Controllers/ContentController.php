@@ -33,7 +33,8 @@ class ContentController extends Controller
                 $contents = Content::oldest()->paginate(2);
             }
         } else {
-            $contents = Content::all();
+            $contents = $query->where('user_id', Auth::id())->paginate(2);
+
         }
 
 
@@ -59,20 +60,6 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'title' => 'required',
-                'url' => 'required|max:11|min:11',
-                'body' => 'nullable',
-            ],
-            [
-                'title.required' => 'タイトルは必須です',
-                'url.required' => '動画IDは必須です',
-                'url.max:11' => '動画IDは11字です',
-                'url.min:11' => '動画IDは11字です'
-            ]
-        );
-
         $request->validate(
             [
                 'title' => 'required',
@@ -131,21 +118,6 @@ class ContentController extends Controller
      */
     public function update(Request $request, Content $content)
     {
-
-        $request->validate(
-            [
-                'title' => 'required',
-                'url' => 'required|max:11|min:11',
-                'body' => 'nullable',
-            ],
-            [
-                'title.required' => 'タイトルは必須です',
-                'url.required' => '動画IDは必須です',
-                'url.max:11' => '動画IDは11字です',
-                'url.min:11' => '動画IDは11字です'
-            ]
-        );
-
 
         $request->validate(
             [

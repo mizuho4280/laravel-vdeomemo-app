@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,19 +15,21 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/js/app.js'])
 </head>
+
 <body style="padding: 60px 0;">
     <div id="app">
 
         @include('layouts.header')
-    
+
         <main class="py-4">
             @yield('content')
         </main>
 
         @include('layouts.footer')
-    
+
     </div>
 </body>
+
 </html>

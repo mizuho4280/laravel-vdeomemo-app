@@ -6,7 +6,8 @@
 
         <main>
             <article>
-                <div>
+                <div class="container">
+
 
                     @if ($errors->any())
                         <div>
@@ -19,25 +20,25 @@
                     @endif
 
 
-                    <h1>新規投稿</h1>
+                    <h1 class="text-center">新規投稿</h1>
 
-                    <div>
+                    <div class="float-start">
                         <a href="{{ route('contents.index') }}">&lt; 戻る</a>
                     </div>
-
+                    <br>
                     <form action="{{ route('contents.store') }}" method="post">
                         @csrf
-                        <div>
-                            <label for="title">メモタイトル</label>
-                            <input type="text" name="title">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">メモタイトル</label>
+                            <input type="text" class="form-control" name="title">
                         </div>
-                        <div>
-                            <label for="url">動画ID　https://www.youtube.com/embed/</label>
-                            <input type="text" name="url">
+                        <div class="mb-3">
+                            <label for="url" class="form-label">動画ID　(https://www.youtube.com/watch?v=......)</label>
+                            <input type="text" class="form-control" name="url">
                         </div>
-                        <div>
-                            <label for="body">メモ本文</label>
-                            <textarea name="body"></textarea>
+                        <div class="mb-3">
+                            <label for="body" class="form-label">メモ本文</label>
+                            <textarea name="body" class="form-control" style="height: 300px"></textarea>
                         </div>
                         <button type="submit">メモ作成</button>
                     </form>

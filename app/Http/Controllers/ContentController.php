@@ -138,7 +138,7 @@ class ContentController extends Controller
         $content->body = $request->input('body');
         $content->save();
 
-        return redirect()->route('contents.show', $content)->with('flash_message', '投稿を編集しました。');
+        return redirect()->route('contents.show', $content)->with('flash_message', 'メモを編集しました。');
     }
 
     /**
@@ -151,7 +151,7 @@ class ContentController extends Controller
     {
         $content->delete();
 
-        return redirect()->route('contents.index');
+        return redirect()->route('contents.index')->with('flash_message', 'メモを削除しました。');
     }
 
 

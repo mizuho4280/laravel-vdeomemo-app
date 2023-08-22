@@ -18,7 +18,7 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ms-auto">
                     @auth
-                        <div class="fs-5 me-3 mb-0">
+                        <div class="navbar-brand fs-5 me-3 mb-0">
                             <a href="{{ route('contents.create') }}" class="text-decoration-none link-secondary">新規投稿</a>
                         </div>
                     @endauth

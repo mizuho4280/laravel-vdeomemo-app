@@ -3,22 +3,21 @@
 @section('content')
 
     <body>
-
         <main>
             <article>
                 <div class="container">
 
-                    <div>
-                        @if ($errors->any())
-                            <div>
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                    </div>
+
+                    @if ($errors->any())
+                        <div>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
 
                     <div class="float-start">
                         <a href="{{ route('contents.index') }}">&lt; 戻る</a>
@@ -43,7 +42,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="body" class="form-label">メモ本文</label>
-                            <textarea name="body" class="form-control" style="height: 300px">{{ $content->body }}</textarea>
+                            <textarea name="body" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $content->body }}</textarea>
                         </div>
                         <button type="submit">メモ更新</button>
                     </form>

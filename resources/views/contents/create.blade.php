@@ -3,7 +3,6 @@
 @section('content')
 
     <body>
-
         <main>
             <article>
                 <div class="container">
@@ -38,7 +37,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="body" class="form-label">メモ本文</label>
-                            <textarea name="body" class="form-control" style="height: 300px"></textarea>
+                            <textarea name="body" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
                         <button type="submit">メモ作成</button>
                     </form>

@@ -30,7 +30,7 @@
                                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                                 allowfullscreen></iframe></p>
                                     </a>
-                                    <p class="fs-3">{{ $content->body }}</p>
+                                    <p class="fs-3" style="white-space:pre-wrap;">{{ $content->body }}</p>
                                 </div>
                                 <div>
                                     <a href="{{ route('contents.edit', $content) }}" class="btn btn-outline-primary">編集</a>

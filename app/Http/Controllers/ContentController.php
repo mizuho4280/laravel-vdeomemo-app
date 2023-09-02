@@ -63,15 +63,14 @@ class ContentController extends Controller
         $request->validate(
             [
                 'title' => 'required',
-                'url' => 'required|max:11|min:11',
+                'url' => ['required', 'regex:/^[0-9a-zA-Z]{11}$/'],
                 'body' => 'nullable',
             ],
             [
                 'title.required' => 'タイトルは必須です',
                 'url.required' => '動画IDは必須です',
-                'url.max:11' => '動画IDは11字です',
-                'url.min:11' => '動画IDは11字です'
-            ]
+                'url.regex' => '動画IDは半角英数字11字です',
+            ],
         );
 
 
@@ -122,16 +121,19 @@ class ContentController extends Controller
         $request->validate(
             [
                 'title' => 'required',
-                'url' => 'required|max:11|min:11',
+                'url' => ['required', 'regex:/^[0-9a-zA-Z]{11}$/'],
                 'body' => 'nullable',
             ],
             [
                 'title.required' => 'タイトルは必須です',
                 'url.required' => '動画IDは必須です',
-                'url.max:11' => '動画IDは11字です',
-                'url.min:11' => '動画IDは11字です'
-            ]
+                'url.regex' => '動画IDは半角英数字11字です',
+            ],
         );
+
+
+
+
 
         $content->title = $request->input('title');
         $content->url = $request->input('url');

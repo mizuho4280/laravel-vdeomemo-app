@@ -6,6 +6,8 @@ use App\Models\Content;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Models\Tag;
 
 class ContentController extends Controller
 {
@@ -16,6 +18,8 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
+
+        $tags = Auth::user()->tags;
 
         $search = $request->input('search');
 
@@ -39,7 +43,7 @@ class ContentController extends Controller
 
 
 
-        return view('contents.index', compact('contents'), ['sort' => $sort, 'contents' => $contents]);
+        return view('contents.index', compact('contents', 'tags'), ['sort' => $sort, 'contents' => $contents]);
     }
 
     /**
@@ -49,7 +53,9 @@ class ContentController extends Controller
      */
     public function create()
     {
-        return view('contents.create');
+        $tags = Auth::user()->tags;
+
+        return view('contents.create', compact('tags'));
     }
 
     /**
@@ -74,12 +80,16 @@ class ContentController extends Controller
         );
 
 
+
         $content = new Content();
         $content->title = $request->input('title');
         $content->url = $request->input('url');
         $content->body = $request->input('body');
         $content->user_id = Auth::id();
         $content->save();
+
+
+        $content->tags()->sync($request->input('tag_ids'));
 
         return redirect()->route('contents.index');
     }
@@ -92,7 +102,11 @@ class ContentController extends Controller
      */
     public function show(Content $content)
     {
-        return view('contents.show', compact('content'));
+
+
+        $tags = Auth::user()->tags;
+
+        return view('contents.show', compact('content', 'tags'));
     }
 
     /**
@@ -103,8 +117,8 @@ class ContentController extends Controller
      */
     public function edit(Content $content)
     {
-
-        return view('contents.edit', compact('content'));
+        $tags = Auth::user()->tags;
+        return view('contents.edit', compact('content', 'tags'));
 
     }
 
@@ -131,14 +145,12 @@ class ContentController extends Controller
             ],
         );
 
-
-
-
-
         $content->title = $request->input('title');
         $content->url = $request->input('url');
         $content->body = $request->input('body');
         $content->save();
+
+        $content->tags()->sync($request->input('tag_ids'));
 
         return redirect()->route('contents.show', $content)->with('flash_message', 'メモを編集しました。');
     }

@@ -30,9 +30,16 @@
                                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                                 allowfullscreen></iframe></p>
                                     </a>
+
                                     <p class="fs-3" style="white-space:pre-wrap;">{{ $content->body }}</p>
-                                </div>
-                                <div>
+
+                                    <div class="d-flex flex-wrap mx-1 mb-1">
+                                        @foreach ($content->tags()->orderBy('id', 'asc')->get() as $tag)
+                                            <span class="badge bg-secondary mt-2 me-2 fw-light">{{ $tag->name }}</span>
+                                        @endforeach
+                                    </div>
+
+
                                     <a href="{{ route('contents.edit', $content) }}" class="btn btn-outline-primary">編集</a>
 
                                     @include('modals.delete')

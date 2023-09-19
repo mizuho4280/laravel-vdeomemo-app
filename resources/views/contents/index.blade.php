@@ -24,6 +24,14 @@
                                 class="btn btn-outline-secondary">古い順</button>
                         </form>
                     </div>
+                    <!-- タグの追加用モーダル -->
+                    @include('modals.add_tag')
+                    <a href="#" class="ms-4 link-dark text-decoration-none" data-bs-toggle="modal"
+                        data-bs-target="#addTagModal">
+                        <div class="d-flex align-items-center">
+                            <span class="fs-5 fw-bold">＋</span>&nbsp;タグの追加
+                        </div>
+                    </a>
                     <div>
                         <h1 class="text-center fs-2 ">投稿一覧</h1>
                     </div>
@@ -42,7 +50,11 @@
                                                     allowfullscreen></iframe></p>
                                         </a>
                                     </div>
-
+                                    <div class="d-flex flex-wrap mx-1 mb-1">
+                                        @foreach ($content->tags()->orderBy('id', 'asc')->get() as $tag)
+                                            <span class="badge bg-secondary mt-2 me-2 fw-light">{{ $tag->name }}</span>
+                                        @endforeach
+                                    </div>
                                 </div>
                             @endforeach
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +21,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
 Route::resource('contents', ContentController::class)->middleware('auth');
+
+Route::resource('tags', TagController::class)->only(['store', 'update', 'destroy'])->middleware('auth');

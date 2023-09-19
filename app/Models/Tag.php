@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Content extends Model
+class Tag extends Model
 {
     use HasFactory;
 
@@ -14,8 +14,8 @@ class Content extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tags()
+    public function contents()
     {
-        return $this->belongsToMany(Tag::class)->withTimestamps();
+        return $this->belongsToMany(Content::class)->withTimestamps();
     }
 }

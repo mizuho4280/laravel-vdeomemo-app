@@ -35,6 +35,19 @@
                             <label for="url" class="form-label">動画ID　(https://www.youtube.com/watch?v=......)</label>
                             <input type="text" class="form-control" name="url">
                         </div>
+
+                        <div class="d-flex flex-wrap">
+                            @foreach ($tags as $tag)
+                                <label>
+                                    <div class="d-flex align-items-center mt-3 me-3">
+                                        <input type="checkbox" name="tag_ids[]" value="{{ $tag->id }}">
+                                        <span class="badge bg-secondary ms-1">{{ $tag->name }}</span>
+                                    </div>
+                                </label>
+                            @endforeach
+
+                        </div>
+
                         <div class="mb-3">
                             <label for="body" class="form-label">メモ本文</label>
                             <textarea name="body" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>

@@ -52,7 +52,10 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
+
+                                <a class="dropdown-item" href="{{ route('index') }}">お問い合わせ</a>
                             </div>
+
                         </li>
                     @endguest
                 </ul>

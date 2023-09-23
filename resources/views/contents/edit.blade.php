@@ -56,6 +56,14 @@
                             <label for="body" class="form-label">メモ本文</label>
                             <textarea name="body" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $content->body }}</textarea>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="status" class="form-label">メモタイトル</label>
+                            <br>
+                            <input type="radio" name="memo_status" value="0">プライベート
+                            <input type="radio" name="memo_status" value="1">パブリック
+                        </div>
+
                         <button type="submit">メモ更新</button>
                     </form>
                 </div>

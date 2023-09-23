@@ -41,6 +41,11 @@
                             @foreach ($contents as $content)
                                 <div class="card text-center">
                                     <div class="card-body">
+                                        @if ($content->memo_status == 0)
+                                            <p>プライベート</p>
+                                        @elseif ($content->memo_status == 1)
+                                            <p>パブリック</p>
+                                        @endif
                                         <a href="{{ route('contents.show', $content) }}">
                                             <h2 class="card-title fs-2 text-center">{{ $content->title }}</h2>
                                             <p><iframe width="560" height="315"

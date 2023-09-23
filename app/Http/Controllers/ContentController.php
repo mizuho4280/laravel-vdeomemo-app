@@ -41,6 +41,8 @@ class ContentController extends Controller
 
         }
 
+        $memo_status = Auth::user()->memo_status;
+
 
 
         return view('contents.index', compact('contents', 'tags'), ['sort' => $sort, 'contents' => $contents]);
@@ -86,6 +88,7 @@ class ContentController extends Controller
         $content->url = $request->input('url');
         $content->body = $request->input('body');
         $content->user_id = Auth::id();
+        $content->memo_status = $request->input('memo_status');
         $content->save();
 
 
@@ -105,6 +108,7 @@ class ContentController extends Controller
 
 
         $tags = Auth::user()->tags;
+        $memo_status = Auth::user()->memo_status;
 
         return view('contents.show', compact('content', 'tags'));
     }
@@ -148,6 +152,7 @@ class ContentController extends Controller
         $content->title = $request->input('title');
         $content->url = $request->input('url');
         $content->body = $request->input('body');
+        $content->memo_status = $request->input('memo_status');
         $content->save();
 
         $content->tags()->sync($request->input('tag_ids'));

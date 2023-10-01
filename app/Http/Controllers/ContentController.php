@@ -22,22 +22,21 @@ class ContentController extends Controller
         $tags = Auth::user()->tags;
 
         $search = $request->input('search');
-
         $query = Content::query();
-
         if (!empty($search)) {
             $query->where('title', 'LIKE', "%{$search}%");
         }
 
+
         $sort = $request->get('sort');
         if ($sort) {
             if ($sort == 'asc') {
-                $contents = Content::latest()->paginate(2);
+                $contents = Content::where('user_id', Auth::id())->orWhere('memo_status', '=', 1)->latest()->paginate(2);
             } elseif ($sort == 'desc') {
-                $contents = Content::oldest()->paginate(2);
+                $contents = Content::where('user_id', Auth::id())->orWhere('memo_status', '=', 1)->oldest()->paginate(2);
             }
         } else {
-            $contents = $query->where('user_id', Auth::id())->paginate(2);
+            $contents = $query->where('user_id', Auth::id())->orWhere('memo_status', '=', 1)->paginate(2);
 
         }
 
@@ -71,13 +70,13 @@ class ContentController extends Controller
         $request->validate(
             [
                 'title' => 'required',
-                'url' => ['required', 'regex:/^[0-9a-zA-Z]{11}$/'],
+                'url' => ['required', 'max:11', 'min:11'],
                 'body' => 'nullable',
             ],
             [
                 'title.required' => 'タイトルは必須です',
                 'url.required' => '動画IDは必須です',
-                'url.regex' => '動画IDは半角英数字11字です',
+                'url.max' => '動画IDは11字です',
             ],
         );
 

@@ -69,4 +69,5 @@ class TagController extends Controller
 
         return redirect()->route('contents.index');
     }
+
 }

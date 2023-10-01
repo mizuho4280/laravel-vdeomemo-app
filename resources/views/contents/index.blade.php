@@ -12,7 +12,11 @@
 
                     <div class="float-end">
                         <form action="{{ route('contents.index') }}" method="get">
-                            <input type="text" name="search" placeholder="検索">
+                            <input type="text" name="search" placeholder="タイトル検索">
+                            <button type="submit" class="btn btn-outline-secondary">検索</button>
+                        </form>
+                        <form action="{{ route('contents.index') }}" method="GET">
+                            <input type="text" name="keyword" placeholder="タグ検索">
                             <button type="submit" class="btn btn-outline-secondary">検索</button>
                         </form>
                     </div>
@@ -63,7 +67,7 @@
                                 </div>
                             @endforeach
 
-                            {{ $contents->links() }}
+                            {{ $contents->appends(request()->query())->links() }}
 
                         </div>
 

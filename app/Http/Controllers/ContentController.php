@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Tag;
+use Illuminate\Database\Query\Builder;
 
 class ContentController extends Controller
 {
@@ -22,25 +23,35 @@ class ContentController extends Controller
         $tags = Auth::user()->tags;
 
         $search = $request->input('search');
+        $key = $request->input('key');
+
         $query = Content::query();
         if (!empty($search)) {
             $query->where('title', 'LIKE', "%{$search}%");
         }
 
+        $query2 = Tag::query();
+        if (!empty($key)) {
+            $query2->where('name', 'LIKE', "%{$key}%");
+        }
 
         $sort = $request->get('sort');
-        if ($sort) {
-            if ($sort == 'asc') {
-                $contents = Content::where('user_id', Auth::id())->orWhere('memo_status', '=', 1)->latest()->paginate(2);
-            } elseif ($sort == 'desc') {
-                $contents = Content::where('user_id', Auth::id())->orWhere('memo_status', '=', 1)->oldest()->paginate(2);
-            }
+        if ($sort == 'asc') {
+            $contents = $query
+                ->where(function ($q) {
+                    $q->where('user_id', Auth::user()->id)
+                        ->orWhere('memo_status', 1);
+                })->latest()->paginate(10);
         } else {
-            $contents = $query->where('user_id', Auth::id())->orWhere('memo_status', '=', 1)->paginate(2);
-
+            $contents = $query
+                ->where(function ($q) {
+                    $q->where('user_id', Auth::user()->id)
+                        ->orWhere('memo_status', 1);
+                })->oldest()->paginate(10);
         }
 
         $memo_status = Auth::user()->memo_status;
+
 
 
 

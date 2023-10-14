@@ -6,7 +6,22 @@
             <h1>動画メモ(仮称)</h1>
             <p class="fs-3">お気に入りの動画と<br>
                 個人的な感想やメモ書きを<br>
-                まとめて管理できるアプリです。</p>
+                まとめて管理できるサイトです。</p>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">point1</div>
+                    <div class="card-body">動画メモ(仮称)は動画と紐づけされたメモ投稿サイトです。</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">point2</div>
+                    <div class="card-body">みんなに勧めたい動画メモは全体公開、個人で楽しみたい動画メモは個人公開に。</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">point3</div>
+                    <div class="card-body">タグ設定で類似投稿の管理、検索が可能です。</div>
+                </div>
+            </div>
         </div>
         <div class="row justify-content-end">
             <div class="col-md-8">

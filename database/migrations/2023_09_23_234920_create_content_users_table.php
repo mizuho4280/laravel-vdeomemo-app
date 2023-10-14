@@ -12,10 +12,10 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('content_user', function (Blueprint $table) {
+        Schema::create('content_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('content_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('content_id');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('content_user');
+        Schema::dropIfExists('content_users');
     }
 };

@@ -53,6 +53,11 @@
                                     @csrf
                                 </form>
 
+                                <a href="#" class="dropdown-item" data-bs-toggle="modal"
+                                    data-bs-target="#addTagModal">
+                                    タグの追加
+                                </a>
+
                                 <a class="dropdown-item" href="{{ route('index') }}">お問い合わせ</a>
                             </div>
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,8 @@ Route::post('/contact/confirm', 'App\Http\Controllers\ContactController@confirm'
 
 //送信完了ページ
 Route::post('/contact/thanks', 'App\Http\Controllers\ContactController@send')->name('send');
+
+Route::get('/like/{contentId}', [LikeController::class, 'store']);
+Route::get('/unlike/{contentId}', [LikeController::class, 'destroy']);
+Route::post('/like/{contentId}', [LikeController::class, 'store'])->name('like.store');
+Route::post('/unlike/{contentId}', [LikeController::class, 'destroy'])->name('like.destroy');

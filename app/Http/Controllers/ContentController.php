@@ -25,29 +25,38 @@ class ContentController extends Controller
         $search = $request->input('search');
         $key = $request->input('key');
 
-        $query = Content::query();
+        // $query = Content::query();
+        // if (!empty($search)) {
+        //     $query->where('title', 'LIKE', "%{$search}%");
+        // }
+
+        // $query2 = Tag::query();
+        // if (!empty($key)) {
+        //     $query2->where('name', 'LIKE', "%{$key}%");
+        // }
+
+        $query = Content::leftJoin('tags', 'contents.user_id', '=', 'tags.user_id');
         if (!empty($search)) {
-            $query->where('title', 'LIKE', "%{$search}%");
+            $query->where('contents.title', 'LIKE', "%{$search}%");
+        } elseif (!empty($key)) {
+            $query->where('tags.name', 'LIKE', "%{$key}%");
         }
 
-        $query2 = Tag::query();
-        if (!empty($key)) {
-            $query2->where('name', 'LIKE', "%{$key}%");
-        }
+
 
         $sort = $request->get('sort');
         if ($sort == 'asc') {
             $contents = $query
                 ->where(function ($q) {
-                    $q->where('user_id', Auth::user()->id)
+                    $q->where('contents.user_id', Auth::user()->id)
                         ->orWhere('memo_status', 1);
-                })->latest()->paginate(10);
+                })->latest('contents.created_at')->paginate(10);
         } else {
             $contents = $query
                 ->where(function ($q) {
-                    $q->where('user_id', Auth::user()->id)
+                    $q->where('contents.user_id', Auth::user()->id)
                         ->orWhere('memo_status', 1);
-                })->oldest()->paginate(10);
+                })->oldest('contents.created_at')->paginate(10);
         }
 
         $memo_status = Auth::user()->memo_status;

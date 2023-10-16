@@ -30,7 +30,7 @@ class Content extends Model
 
     public function is_liked_by_auth_user()
     {
-        $id = Auth::user();
+        $id = Auth::user()->id;
 
         $likers = array();
         foreach ($this->likes as $like) {

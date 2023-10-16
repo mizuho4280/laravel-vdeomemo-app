@@ -74,11 +74,11 @@
                                                     </div>
                                                     <div>
                                                         @if ($content->is_liked_by_auth_user())
-                                                            <a href="{{ route('like.store', $content->id) }}"
+                                                            <a href="{{ route('like.destroy', $content->id) }}"
                                                                 class="btn btn-success btn-sm">いいね<span
                                                                     class="badge">{{ $content->likes->count() }}</span></a>
                                                         @else
-                                                            <a href="{{ route('like.destroy', $content->id) }}"
+                                                            <a href="{{ route('like.store', $content->id) }}"
                                                                 class="btn btn-secondary btn-sm">いいね<span
                                                                     class="badge">{{ $content->likes->count() }}</span></a>
                                                         @endif

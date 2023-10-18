@@ -16,6 +16,7 @@
 
     <!-- Scripts -->
     @vite(['resources/js/app.js'])
+
 </head>
 
 <body style="padding: 60px 0;">

@@ -46,53 +46,55 @@
 
                                     <div class="d-flex justify-content-center">
                                         <div class="col-md-6">
-                                            @foreach ($contents as $content)
-                                                <div class="card text-center">
-                                                    <div class="card-body">
-                                                        <div class="text-end">
-                                                            @if ($content->memo_status == 0)
-                                                                <p>プライベート</p>
-                                                            @elseif ($content->memo_status == 1)
-                                                                <p>パブリック</p>
+                                            <div class="card border-info mb-3 g-4">
+                                                @foreach ($contents as $content)
+                                                    <div class="card text-center">
+                                                        <div class="card-body">
+                                                            <div class="text-end">
+                                                                @if ($content->memo_status == 0)
+                                                                    <p>プライベート</p>
+                                                                @elseif ($content->memo_status == 1)
+                                                                    <p>パブリック</p>
+                                                                @endif
+                                                            </div>
+                                                            <a href="{{ route('contents.show', $content) }}">
+                                                                <h2 class="card-title fs-2 text-center">
+                                                                    {{ $content->title }}
+                                                                </h2>
+                                                                <p><iframe width="100%" height="315"
+                                                                        src="https://www.youtube.com/embed/{{ $content->url }}"
+                                                                        title="YouTube video player" frameborder="0"
+                                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                        allowfullscreen></iframe></p>
+                                                            </a>
+                                                        </div>
+                                                        <div class="d-flex flex-wrap mx-1 mb-1">
+                                                            @foreach ($content->tags()->orderBy('id', 'asc')->get() as $tag)
+                                                                <span
+                                                                    class="badge bg-secondary mt-2 me-2 fw-light">{{ $tag->name }}</span>
+                                                            @endforeach
+                                                        </div>
+                                                        <div>
+                                                            @if ($content->is_liked_by_auth_user())
+                                                                <a href="{{ route('like.destroy', $content->id) }}"
+                                                                    class="btn btn-success btn-sm">いいね<span
+                                                                        class="badge">{{ $content->likes->count() }}</span></a>
+                                                            @else
+                                                                <a href="{{ route('like.store', $content->id) }}"
+                                                                    class="btn btn-secondary btn-sm">いいね<span
+                                                                        class="badge">{{ $content->likes->count() }}</span></a>
                                                             @endif
                                                         </div>
-                                                        <a href="{{ route('contents.show', $content) }}">
-                                                            <h2 class="card-title fs-2 text-center">{{ $content->title }}
-                                                            </h2>
-                                                            <p><iframe width="100%" height="315"
-                                                                    src="https://www.youtube.com/embed/{{ $content->url }}"
-                                                                    title="YouTube video player" frameborder="0"
-                                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                                    allowfullscreen></iframe></p>
-                                                        </a>
                                                     </div>
-                                                    <div class="d-flex flex-wrap mx-1 mb-1">
-                                                        @foreach ($content->tags()->orderBy('id', 'asc')->get() as $tag)
-                                                            <span
-                                                                class="badge bg-secondary mt-2 me-2 fw-light">{{ $tag->name }}</span>
-                                                        @endforeach
-                                                    </div>
-                                                    <div>
-                                                        @if ($content->is_liked_by_auth_user())
-                                                            <a href="{{ route('like.destroy', $content->id) }}"
-                                                                class="btn btn-success btn-sm">いいね<span
-                                                                    class="badge">{{ $content->likes->count() }}</span></a>
-                                                        @else
-                                                            <a href="{{ route('like.store', $content->id) }}"
-                                                                class="btn btn-secondary btn-sm">いいね<span
-                                                                    class="badge">{{ $content->likes->count() }}</span></a>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
 
-                                            {{-- {{ $contents->appends(request()->query())->links() }} --}}
+                                                {{-- {{ $contents->appends(request()->query())->links() }} --}}
+
+                                            </div>
 
                                         </div>
-
                                     </div>
                                 </div>
-                            </div>
             </article>
         </main>
 

@@ -25,20 +25,12 @@ class ContentController extends Controller
         $search = $request->input('search');
         $key = $request->input('key');
 
-        // $query = Content::query();
-        // if (!empty($search)) {
-        //     $query->where('title', 'LIKE', "%{$search}%");
-        // }
+        $query = Content::query();
 
-        // $query2 = Tag::query();
-        // if (!empty($key)) {
-        //     $query2->where('name', 'LIKE', "%{$key}%");
-        // }
-
-        $query = Content::leftJoin('tags', 'contents.user_id', '=', 'tags.user_id');
         if (!empty($search)) {
             $query->where('contents.title', 'LIKE', "%{$search}%");
         } elseif (!empty($key)) {
+            $query->join('tags', 'contents.user_id', '=', 'tags.user_id');
             $query->where('tags.name', 'LIKE', "%{$key}%");
         }
 
@@ -64,7 +56,7 @@ class ContentController extends Controller
 
 
 
-        return view('contents.index', compact('contents', 'tags'), ['sort' => $sort, 'contents' => $contents]);
+        return view('contents.index', compact('tags'), ['sort' => $sort, 'contents' => $contents]);
     }
 
     /**

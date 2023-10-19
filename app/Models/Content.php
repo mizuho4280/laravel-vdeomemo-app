@@ -25,7 +25,7 @@ class Content extends Model
 
     public function likes()
     {
-        return $this->hasMany(content_users::class, 'content_id');
+        return $this->hasMany(ContentUser::class, 'content_id');
     }
 
     public function is_liked_by_auth_user()
